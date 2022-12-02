@@ -19,7 +19,17 @@ export function initSwagger(app, config: ConfigService) {
     .setVersion(swaggerConfig.version)
     .addServer(swaggerConfig.server, 'Host')
     .setExternalDoc('Postman Collection', '/docs-json')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        description: 'Please enter token in following format: ',
+        name: 'Authorization',
+        bearerFormat: 'Bearer',
+        scheme: 'Bearer',
+        type: 'http',
+        in: 'Header',
+      },
+      'jwt',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, configSwagger);

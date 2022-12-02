@@ -3,7 +3,8 @@ import { Document } from 'mongoose';
 import { Prop } from '@shared/swagger';
 
 export enum Role {
-  USER = 'user',
+  HOST = 'host',
+  RENTER = 'renter',
   ADMIN = 'admin',
 }
 
@@ -40,9 +41,33 @@ export class User {
   @Prop({
     type: String,
     required: true,
-    default: Role.USER,
+    default: Role.RENTER,
   })
   role: string;
+
+  @Prop({
+    type: 'string',
+    required: true,
+  })
+  numberPhone: string;
+
+  @Prop({
+    type: 'string',
+    required: false,
+  })
+  zaloPhone: string;
+
+  @Prop({
+    type: 'string',
+    required: false,
+  })
+  facebookUrl: string;
+
+  @Prop({
+    type: 'string',
+    required: false,
+  })
+  avatarUrl: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

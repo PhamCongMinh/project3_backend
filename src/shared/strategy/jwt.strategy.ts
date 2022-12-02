@@ -3,8 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { EEnvKey } from '@constants/env.constant';
-import { AuthService } from '@modules/auth/auth.service';
-import { BadRequestException, Unauthorized } from '@shared/exception';
+import { Unauthorized } from '@shared/exception';
 import { ErrorConstant } from '@constants/error.constant';
 import { EAuthGuard } from '@constants/auth.constant';
 
@@ -20,14 +19,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, EAuthGuard.JWT) {
   }
 
   async validate(payload: any) {
-    const owner = await this.ownerService.getOwnerByEmail(payload.email);
-    if (!owner) {
-      throw new Unauthorized({
-        message: ErrorConstant.AUTH.UNAUTHORIZED,
-      });
-    }
-
     return {
+      id: payload.id,
       email: payload.email,
       role: payload.role,
     };

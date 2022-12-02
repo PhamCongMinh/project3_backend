@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { AuthErrorMessage, saltBcrypt } from '@modules/auth/constants/index';
-import { User } from '@models/entities/User.entity';
+import { User, UserDocument } from '@models/entities/User.entity';
 import { LoginDto } from '@modules/auth/dto/login.dto';
 import { RegisterDto } from '@modules/auth/dto/register.dto';
 import { BadRequestException, Exception } from '@shared/exception';
@@ -24,20 +24,21 @@ export class AuthService {
     this.loggerService.getLogger('AuthService');
   }
 
-  async createAccessToken(user: User) {
-    const payload = { email: user.email, role: user.role };
-    user['access_token'] = this.jwtService.sign(payload, {
+  async createAccessToken(user: UserDocument) {
+    const payload = { id: user._id, email: user.email, role: user.role };
+    const result = user.toObject();
+
+    result['access_token'] = this.jwtService.sign(payload, {
       secret: this.configService.get(EEnvKey.TOKEN_AUTH_KEY),
       expiresIn: 60 * 15,
     });
 
-    delete user.password;
-    return user;
+    delete result.password;
+    return result;
   }
 
   async login(loginDto: LoginDto) {
     const user = await this.userRepository.findUserByEmail(loginDto.email);
-
     // Check user exist
     if (!user)
       throw new BadRequestException({ message: AuthErrorMessage.NoExist });

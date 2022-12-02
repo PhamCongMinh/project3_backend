@@ -31,7 +31,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth('Jwt')
+  @ApiBearerAuth('jwt')
   @Post('logout')
   @ApiOperation({ description: ApiAuthDescription.logout })
   logout() {
