@@ -9,4 +9,7 @@ export const ErrorConstant = Object.freeze({
     INVALID_EMAIL_OR_PASSWORD: 'INVALID_EMAIL_OR_PASSWORD',
     UNAUTHORIZED: 'UNAUTHORIZED',
   },
+  RENTOUT: {
+    NOT_EXIST_RENTALNEWS: 'NOT_EXIST_RENTALNEWS',
+  },
 });

@@ -25,7 +25,8 @@
       "@models/*": ["models/*"],
       "@repo/*": ["repositories/*"],
       "@shared/*": ["shared/*"],
-      "@modules/*": ["modules/*"]
+      "@modules/*": ["modules/*"],
+      "@upload/*": ["modules/*"]
     },
     "esModuleInterop": true
   },

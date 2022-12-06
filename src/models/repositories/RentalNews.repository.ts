@@ -26,4 +26,12 @@ export default class RentalNewsRepository {
   async findByOwnerId(ownerId: string): Promise<RentalNewsDocument[]> {
     return this.rentalNewsDocument.find({ ownerId: ownerId }).exec();
   }
+
+  async findById(id: string): Promise<RentalNewsDocument[]> {
+    return this.rentalNewsDocument.find({ _id: id }).exec();
+  }
+
+  async getAll(): Promise<RentalNewsDocument[]> {
+    return this.rentalNewsDocument.find().exec();
+  }
 }

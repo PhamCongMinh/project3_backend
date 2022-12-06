@@ -6,6 +6,7 @@ import { RentOutService } from '@modules/rent-out/rent-out.service';
 import { LoggingModule } from '@shared/modules/loggers/logger.module';
 import RentalNewsRepository from '@models/repositories/RentalNews.repository';
 import { RentOutController } from '@modules/rent-out/rent-out.controller';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -15,6 +16,11 @@ import { RentOutController } from '@modules/rent-out/rent-out.controller';
         schema: RentalNewsSchema,
       },
     ]),
+    MulterModule.registerAsync({
+      useFactory: () => ({
+        dest: 'src/upload',
+      }),
+    }),
     LoggingModule,
   ],
   controllers: [RentOutController],

@@ -1,6 +1,11 @@
 import { Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Prop } from '@shared/swagger';
 
+export enum RentalStatus {
+  AVAILABLE = 'available',
+  RENTED = 'rented',
+}
+
 export type RentalNewsDocument = RentalNews & Document;
 
 @Schema({
@@ -17,6 +22,12 @@ export class RentalNews {
     required: true,
   })
   ownerId: string;
+
+  @Prop({
+    type: 'string',
+    default: RentalStatus.AVAILABLE,
+  })
+  status: RentalStatus;
 
   @Prop({
     type: 'number',

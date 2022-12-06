@@ -1,7 +1,13 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { RentalStatus } from '@models/entities/RentalNews';
 
 export class UpdateRentalNewsDto {
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  status: RentalStatus;
+
   @ApiPropertyOptional()
   @IsOptional()
   @IsNumber()
@@ -58,4 +64,7 @@ export class UpdateRentalNewsDto {
   @ApiPropertyOptional()
   @IsOptional()
   imageUrl: string[];
+
+  @ApiPropertyOptional({ type: 'string', format: 'binary', required: true })
+  image: Express.Multer.File;
 }

@@ -1,8 +1,13 @@
-import { Prop } from '@shared/swagger';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { RentalStatus } from '@models/entities/RentalNews';
 
 export class CreateRentalNewsDto {
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  status: RentalStatus = RentalStatus.AVAILABLE;
+
   @ApiProperty()
   @IsNumber()
   @Min(100000)
@@ -50,4 +55,7 @@ export class CreateRentalNewsDto {
   @ApiPropertyOptional()
   @IsOptional()
   imageUrl: string[];
+
+  @ApiProperty({ type: 'string', format: 'binary', required: true })
+  image: Express.Multer.File;
 }
