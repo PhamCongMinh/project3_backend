@@ -1,5 +1,6 @@
 import {
   IsEmail,
+  IsOptional,
   IsString,
   Matches,
   MaxLength,
@@ -7,27 +8,26 @@ import {
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-export class RegisterDto {
-  @ApiProperty()
-  @IsEmail()
-  email: string;
-
-  @ApiProperty()
+export class UpdateProfileDto {
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsString()
-  numberPhone: string;
+  numberPhone?: string;
 
   @ApiPropertyOptional()
+  @IsOptional()
   @IsString()
   @MinLength(4)
   @MaxLength(20)
-  username: string;
+  username?: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsString()
   @MinLength(4)
   @MaxLength(20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'password too weak',
   })
-  password: string;
+  password?: string;
 }

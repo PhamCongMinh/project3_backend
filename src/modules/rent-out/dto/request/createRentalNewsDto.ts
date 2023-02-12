@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { IsDate, IsNumber, IsOptional, IsString, Min } from 'class-validator';
 import { RentalStatus } from '@models/entities/RentalNews';
+import { Type } from 'class-transformer';
 
 export class CreateRentalNewsDto {
   @ApiPropertyOptional()
@@ -34,9 +35,10 @@ export class CreateRentalNewsDto {
   @IsString()
   street: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsNumber()
-  @Min(1)
+  // @Min(1)
   houseNumber: number;
 
   @ApiPropertyOptional()
@@ -58,4 +60,16 @@ export class CreateRentalNewsDto {
 
   @ApiProperty({ type: 'string', format: 'binary', required: true })
   image: Express.Multer.File;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  startDay: Date;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  endDay: Date;
 }

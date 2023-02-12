@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { AuthService } from '@modules/auth/auth.service';
@@ -7,6 +7,7 @@ import { RegisterDto } from '@modules/auth/dto/register.dto';
 import { JwtAuthGuard } from '@shared/guards/auth.guard';
 import { ApiAuthDescription } from '@modules/auth/constants/description-api';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
+import { UpdateProfileDto } from '@upload/auth/dto/updateProfile.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -38,5 +39,14 @@ export class AuthController {
     return {
       message: 'success',
     };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('jwt')
+  @Post('update-profile')
+  @ApiOperation({ description: ApiAuthDescription.update })
+  updateProfile(@Req() req, @Body() data: UpdateProfileDto) {
+    console.log(req.user.id, data);
+    return this.authService.updateProfile(req.user.id, data);
   }
 }

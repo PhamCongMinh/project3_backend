@@ -12,6 +12,7 @@ import { ConfigService } from '@nestjs/config';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 import UserRepository from '@models/repositories/User.repository';
 import { EEnvKey } from '@constants/env.constant';
+import { UpdateProfileDto } from '@upload/auth/dto/updateProfile.dto';
 
 @Injectable()
 export class AuthService {
@@ -58,5 +59,14 @@ export class AuthService {
     registerDto.password = await bcrypt.hash(registerDto.password, saltBcrypt);
 
     return await this.userRepository.userDocumentModel.create(registerDto);
+  }
+
+  async updateProfile(id, data: UpdateProfileDto) {
+    console.log(id, data);
+    await this.userRepository.userDocumentModel.updateOne({ _id: id }, data);
+    const test = await this.userRepository.userDocumentModel.findOne({
+      _id: id,
+    });
+    return test;
   }
 }

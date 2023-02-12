@@ -1,5 +1,6 @@
 import { Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Prop } from '@shared/swagger';
+import { now } from 'moment';
 
 export enum RentalStatus {
   AVAILABLE = 'available',
@@ -67,13 +68,13 @@ export class RentalNews {
 
   @Prop({
     type: 'number',
-    required: true,
+    required: false,
   })
   houseNumber: number;
 
   @Prop({
     type: 'string',
-    required: true,
+    required: false,
   })
   specificAddress: string;
 
@@ -94,6 +95,18 @@ export class RentalNews {
     required: false,
   })
   imageUrl: string[];
+
+  @Prop({
+    type: Date,
+    default: now(),
+  })
+  startDay?: Date;
+
+  @Prop({
+    type: Date,
+    default: now(),
+  })
+  endDay?: Date;
 }
 
 export const RentalNewsSchema = SchemaFactory.createForClass(RentalNews);
