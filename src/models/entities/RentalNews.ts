@@ -1,6 +1,7 @@
 import { Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Prop } from '@shared/swagger';
 import { now } from 'moment';
+import mongoose from 'mongoose';
 
 export enum RentalStatus {
   AVAILABLE = 'available',
@@ -19,7 +20,8 @@ export type RentalNewsDocument = RentalNews & Document;
 })
 export class RentalNews {
   @Prop({
-    type: 'string',
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   })
   ownerId: string;
@@ -107,6 +109,13 @@ export class RentalNews {
     default: now(),
   })
   endDay?: Date;
+
+  @Prop({
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Comment',
+    required: false,
+  })
+  comments?: string[];
 }
 
 export const RentalNewsSchema = SchemaFactory.createForClass(RentalNews);

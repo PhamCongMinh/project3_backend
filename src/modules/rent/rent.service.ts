@@ -38,13 +38,13 @@ export class RentService {
     if (minPricePerMonth && !maxPricePerMonth)
       query = {
         ...query,
-        pricePerMonth: { $gt: minPricePerMonth },
+        pricePerMonth: { $gte: minPricePerMonth },
       };
 
     if (maxPricePerMonth && !minPricePerMonth)
       query = {
         ...query,
-        pricePerMonth: { $lt: maxPricePerMonth },
+        pricePerMonth: { $lte: maxPricePerMonth },
       };
 
     if (minArea && maxArea)
@@ -56,15 +56,21 @@ export class RentService {
     if (minArea && !maxArea)
       query = {
         ...query,
-        area: { $gt: minArea },
+        area: { $gte: minArea },
       };
 
     if (maxArea && !minArea)
       query = {
         ...query,
-        area: { $lt: maxArea },
+        area: { $lte: maxArea },
       };
 
-    return this.rentalNewsRepository.rentalNewsDocument.find(query);
+    return this.rentalNewsRepository.rentalNewsDocument
+      .find(query)
+      .populate('ownerId')
+      .populate({
+        path: 'comments',
+        populate: { path: 'ownerId' },
+      });
   }
 }
