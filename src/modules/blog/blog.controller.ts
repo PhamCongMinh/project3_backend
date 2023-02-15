@@ -17,7 +17,7 @@ export class BlogController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('jwt')
-  @Post(':id')
+  @Post('/')
   async createBlog(@Body() createBlogDto: CreateBlogDto, @Req() req) {
     return this.blogService.createBlogs(req.user.id, createBlogDto);
   }
