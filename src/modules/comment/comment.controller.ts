@@ -3,8 +3,8 @@ import { JwtAuthGuard } from '@shared/guards/auth.guard';
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 import { Comment } from '@models/entities/Comment.entity';
-import { CreateCommentDto } from '@upload/comment/dto/request/createCommentDto';
-import { CommentService } from '@upload/comment/comment.service';
+import { CreateCommentDto } from '@modules/comment/dto/request/createCommentDto';
+import { CommentService } from '@modules/comment/comment.service';
 
 @ApiTags('Comment')
 @Controller('comment')

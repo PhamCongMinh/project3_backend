@@ -7,7 +7,7 @@ import { RegisterDto } from '@modules/auth/dto/register.dto';
 import { JwtAuthGuard } from '@shared/guards/auth.guard';
 import { ApiAuthDescription } from '@modules/auth/constants/description-api';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
-import { UpdateProfileDto } from '@upload/auth/dto/updateProfile.dto';
+import { UpdateProfileDto } from '@modules/auth/dto/updateProfile.dto';
 
 @ApiTags('Auth')
 @Controller('auth')

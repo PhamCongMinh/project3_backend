@@ -6,6 +6,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Role } from '@models/entities/User.entity';
 
 export class RegisterDto {
   @ApiProperty()
@@ -30,4 +31,8 @@ export class RegisterDto {
     message: 'password too weak',
   })
   password: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  role: Role;
 }

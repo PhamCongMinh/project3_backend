@@ -2,9 +2,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { LoggingModule } from '@shared/modules/loggers/logger.module';
 import { Module } from '@nestjs/common';
 import { Comment, CommentSchema } from '@models/entities/Comment.entity';
-import { CommentService } from '@upload/comment/comment.service';
+import { CommentService } from '@modules/comment/comment.service';
 import CommentRepository from '@models/repositories/Comment.repository';
-import { CommentController } from '@upload/comment/comment.controller';
+import { CommentController } from '@modules/comment/comment.controller';
 import RentalNewsRepository from '@models/repositories/RentalNews.repository';
 import { RentalNews, RentalNewsSchema } from '@models/entities/RentalNews';
 

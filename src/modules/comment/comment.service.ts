@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import BlogRepository from '@models/repositories/Blog.repository';
 import CommentRepository from '@models/repositories/Comment.repository';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
-import { CreateCommentDto } from '@upload/comment/dto/request/createCommentDto';
+import { CreateCommentDto } from '@modules/comment/dto/request/createCommentDto';
 import { Comment } from '@models/entities/Comment.entity';
-import { RentOutService } from '@upload/rent-out/rent-out.service';
+import { RentOutService } from '@modules/rent-out/rent-out.service';
 import RentalNewsRepository from '@models/repositories/RentalNews.repository';
 
 @Injectable()

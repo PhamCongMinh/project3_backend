@@ -1,9 +1,9 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
-import { RentService } from '@upload/rent/rent.service';
+import { RentService } from '@modules/rent/rent.service';
 import { ApiTags } from '@nestjs/swagger';
 import { RentalNewsDocument } from '@models/entities/RentalNews';
-import { FilterDto } from '@upload/rent/dto/request/filter.dto';
+import { FilterDto } from '@modules/rent/dto/request/filter.dto';
 
 @ApiTags('Rent')
 @Controller('rent')

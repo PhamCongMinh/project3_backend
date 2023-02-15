@@ -1,5 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { RentNewsType } from '@models/entities/RentalNews';
 
 export class FilterDto {
   @ApiPropertyOptional()
@@ -40,4 +41,9 @@ export class FilterDto {
   @IsOptional()
   @IsString()
   commune?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  rentNewsType?: RentNewsType;
 }

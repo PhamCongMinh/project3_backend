@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import RentalNewsRepository from '@models/repositories/RentalNews.repository';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 import { UpdateRentalNewsDto } from '@modules/rent-out/dto/request/updateRentalNewsDto';
-import { IRentalNews } from '@upload/rent-out/interfaces';
+import { IRentalNews } from '@modules/rent-out/interfaces';
 import { BadRequestException } from '@shared/exception';
 import { ErrorConstant } from '@constants/error.constant';
 

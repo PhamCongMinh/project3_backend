@@ -15,6 +15,8 @@ import { BodyValidationPipe } from '@shared/pipes/validation.pipe';
 import { initSwagger } from '@shared/swagger';
 
 import { AppModule } from './app.module';
+import { join } from 'path';
+// import * as image from './upload/house.jpeg';
 
 dotenv.config();
 
@@ -35,7 +37,17 @@ async function bootstrap() {
   app.use(useMorgan(loggingService.logger.access));
   initSwagger(app, configService);
   app.use('/assets', express.static('assets'));
+  app.use(express.static('@upload'));
+  // app.use('src/upload', express.static('src/upload'));
+  // app.useStaticAssets(join(__dirname, 'upload'), {
+  //   index: false,
+  //   prefix: '/upload',
+  // });
+  // app.use('/upload', express.static('./upload'));
   await app.listen(configService.get<number>(EEnvKey.PORT) || 3000);
+
   logger.info(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
+
+// join(__dirname, '..', 'upload')

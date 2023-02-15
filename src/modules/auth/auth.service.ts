@@ -12,7 +12,7 @@ import { ConfigService } from '@nestjs/config';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 import UserRepository from '@models/repositories/User.repository';
 import { EEnvKey } from '@constants/env.constant';
-import { UpdateProfileDto } from '@upload/auth/dto/updateProfile.dto';
+import { UpdateProfileDto } from '@modules/auth/dto/updateProfile.dto';
 
 @Injectable()
 export class AuthService {
