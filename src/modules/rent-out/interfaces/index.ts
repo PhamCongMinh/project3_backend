@@ -1,4 +1,4 @@
-import { RentalStatus } from '@models/entities/RentalNews';
+import { RentalStatus, RentNewsType } from '@models/entities/RentalNews';
 
 export interface IRentalNews {
   status: RentalStatus;
@@ -15,4 +15,5 @@ export interface IRentalNews {
   imageUrl: string[];
   startDay?: Date;
   endDay?: Date;
+  rentNewsType: RentNewsType;
 }

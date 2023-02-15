@@ -8,6 +8,13 @@ export enum RentalStatus {
   RENTED = 'rented',
 }
 
+export enum RentNewsType {
+  TYPE1 = 'Phòng trọ',
+  TYPE2 = 'Nhà thuê nguyên căn',
+  TYPE3 = 'Căn hộ mini',
+  TYPE4 = 'Homestay',
+}
+
 export type RentalNewsDocument = RentalNews & Document;
 
 @Schema({
@@ -116,6 +123,12 @@ export class RentalNews {
     required: false,
   })
   comments?: string[];
+
+  @Prop({
+    type: 'string',
+    default: RentNewsType.TYPE1,
+  })
+  rentNewsType: RentNewsType;
 }
 
 export const RentalNewsSchema = SchemaFactory.createForClass(RentalNews);

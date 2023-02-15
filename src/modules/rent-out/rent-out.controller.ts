@@ -71,30 +71,30 @@ export class RentOutController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('jwt')
   @Put(':id')
-  @ApiConsumes('multipart/form-data')
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: 'src/upload',
-        filename: (req, file, cb) => {
-          const filename: string = v4();
-          const extension: string = path.parse(file.originalname).ext;
-          cb(null, `${filename}${extension}`);
-        },
-      }),
-    }),
-  )
+  // @ApiConsumes('multipart/form-data')
+  // @UseInterceptors(
+  //   FileInterceptor('image', {
+  //     storage: diskStorage({
+  //       destination: 'src/upload',
+  //       filename: (req, file, cb) => {
+  //         const filename: string = v4();
+  //         const extension: string = path.parse(file.originalname).ext;
+  //         cb(null, `${filename}${extension}`);
+  //       },
+  //     }),
+  //   }),
+  // )
   async updateRentalNews(
     @Param('id') id: string,
     @Body() updateRentalNews: UpdateRentalNewsDto,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [new MaxFileSizeValidator({ maxSize: 1024000 })],
-      }),
-    )
-    image: Express.Multer.File,
+    // @UploadedFile(
+    //   new ParseFilePipe({
+    //     validators: [new MaxFileSizeValidator({ maxSize: 1024000 })],
+    //   }),
+    // )
+    // image: Express.Multer.File,
   ) {
-    if (image) updateRentalNews.imageUrl = [image.path];
+    // if (image) updateRentalNews.imageUrl = [image.path];
     return this.rentOutService.updateRentalNews(id, updateRentalNews);
   }
 

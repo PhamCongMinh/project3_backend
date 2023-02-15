@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDate, IsNumber, IsOptional, IsString, Min } from 'class-validator';
-import { RentalStatus } from '@models/entities/RentalNews';
+import { RentalStatus, RentNewsType } from '@models/entities/RentalNews';
 import { Type } from 'class-transformer';
 
 export class CreateRentalNewsDto {
@@ -72,4 +72,9 @@ export class CreateRentalNewsDto {
   @Type(() => Date)
   @IsDate()
   endDay: Date;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  rentNewsType: RentNewsType;
 }
