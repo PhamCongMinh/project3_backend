@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import RentalNewsRepository from '@models/repositories/RentalNews.repository';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 import { FilterDto } from '@modules/rent/dto/request/filter.dto';
+import { RentalStatus } from '@models/entities/RentalNews';
 
 @Injectable()
 export class RentService {
@@ -67,6 +68,13 @@ export class RentService {
         ...query,
         area: { $lte: maxArea },
       };
+
+    query = {
+      ...query,
+      status: RentalStatus.AVAILABLE,
+      endDay: { $gte: new Date() },
+    };
+    console.log('query', query);
 
     return this.rentalNewsRepository.rentalNewsDocument
       .find(query)
