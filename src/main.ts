@@ -33,17 +33,29 @@ async function bootstrap() {
 
   app.useGlobalPipes(new BodyValidationPipe());
   app.setGlobalPrefix(configService.get<string>(EEnvKey.GLOBAL_PREFIX));
-  app.enableCors();
+  app.enableCors({
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
   app.use(useMorgan(loggingService.logger.access));
   initSwagger(app, configService);
   app.use('/assets', express.static('assets'));
-  app.use(express.static('@upload'));
+  // app.use(express.static('@upload'));
   // app.use('src/upload', express.static('src/upload'));
   // app.useStaticAssets(join(__dirname, 'upload'), {
   //   index: false,
   //   prefix: '/upload',
   // });
   // app.use('/upload', express.static('./upload'));
+  // app.use('/upload', express.static(join(__dirname, '..', 'upload')));
+  // app.useStaticAssets(join(__dirname, '..', 'upload'), {
+  //   prefix: '/upload/',
+  // });
+  // app.use('/upload', express.static(join(process.cwd(), 'upload')));
+  // app.use(express.static(join(__dirname, '../upload')));
+  // app.useStaticAssets(join(__dirname, '..', '\\upload'));
+
   await app.listen(configService.get<number>(EEnvKey.PORT) || 3000);
 
   logger.info(`Application is running on: ${await app.getUrl()}`);

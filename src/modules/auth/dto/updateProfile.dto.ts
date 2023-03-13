@@ -1,5 +1,4 @@
 import {
-  IsEmail,
   IsOptional,
   IsString,
   Matches,
@@ -12,22 +11,40 @@ export class UpdateProfileDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  fullName?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  dateOfBirth?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  permanentAddress?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  temporaryAddress?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
   numberPhone?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  @MinLength(4)
-  @MaxLength(20)
-  username?: string;
+  citizenIdNumber?: string;
 
-  @ApiPropertyOptional()
+  @ApiProperty({ type: 'string', format: 'binary', required: true })
+  citizenIdImage: Express.Multer.File;
+
+  @ApiProperty({ type: 'string', format: 'binary', required: true })
+  portraitImage: Express.Multer.File;
+
+  @ApiPropertyOptional({ type: 'string', format: 'binary', required: true })
   @IsOptional()
-  @IsString()
-  @MinLength(4)
-  @MaxLength(20)
-  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message: 'password too weak',
-  })
-  password?: string;
+  proofImage: Express.Multer.File;
 }

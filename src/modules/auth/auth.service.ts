@@ -12,7 +12,10 @@ import { ConfigService } from '@nestjs/config';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 import UserRepository from '@models/repositories/User.repository';
 import { EEnvKey } from '@constants/env.constant';
+import { UpdateAccountDto } from '@modules/auth/dto/updateAccount.dto';
 import { UpdateProfileDto } from '@modules/auth/dto/updateProfile.dto';
+import PrivateInformationRepository from '@models/repositories/PrivateInformation.repository';
+import { PrivateInformationDocument } from '@models/entities/PrivateInformation.entity';
 
 @Injectable()
 export class AuthService {
@@ -21,6 +24,7 @@ export class AuthService {
     private jwtService: JwtService,
     private configService: ConfigService,
     private loggerService: LoggerService,
+    private privateInformationRepository: PrivateInformationRepository,
   ) {
     this.loggerService.getLogger('AuthService');
   }
@@ -31,7 +35,7 @@ export class AuthService {
 
     result['access_token'] = this.jwtService.sign(payload, {
       secret: this.configService.get(EEnvKey.TOKEN_AUTH_KEY),
-      expiresIn: 60 * 15,
+      expiresIn: 60 * 60 * 24,
     });
 
     delete result.password;
@@ -61,12 +65,32 @@ export class AuthService {
     return await this.userRepository.userDocumentModel.create(registerDto);
   }
 
-  async updateProfile(id, data: UpdateProfileDto) {
-    console.log(id, data);
+  async updateAccount(id, data: UpdateAccountDto) {
     await this.userRepository.userDocumentModel.updateOne({ _id: id }, data);
     const test = await this.userRepository.userDocumentModel.findOne({
       _id: id,
     });
     return test;
+  }
+
+  async updateProfile(id: string, data: UpdateProfileDto) {
+    const privateData = {
+      ...data,
+      ownerId: id,
+    };
+    console.log(privateData);
+    await this.privateInformationRepository.privateInformationDocumentModel.updateOne(
+      { ownerId: id },
+      privateData,
+      { upsert: true },
+    );
+  }
+
+  async checkUpdatedInfo(id: string) {
+    const userInfo =
+      await this.privateInformationRepository.privateInformationDocumentModel
+        .findOne({ ownerId: id })
+        .exec();
+    return userInfo ? { isUpdatedInfo: true } : { isUpdatedInfo: false };
   }
 }

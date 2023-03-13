@@ -9,6 +9,12 @@ import { JwtStrategy } from '@shared/strategy/jwt.strategy';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '@models/entities/User.entity';
+import { MulterModule } from '@nestjs/platform-express';
+import {
+  PrivateInformation,
+  PrivateInformationSchema,
+} from '@models/entities/PrivateInformation.entity';
+import PrivateInformationRepository from '@models/repositories/PrivateInformation.repository';
 
 @Module({
   imports: [
@@ -17,11 +23,25 @@ import { User, UserSchema } from '@models/entities/User.entity';
         name: User.name,
         schema: UserSchema,
       },
+      {
+        name: PrivateInformation.name,
+        schema: PrivateInformationSchema,
+      },
     ]),
     JwtModule,
     PassportModule,
+    MulterModule.registerAsync({
+      useFactory: () => ({
+        dest: 'src/upload',
+      }),
+    }),
   ],
-  providers: [AuthService, JwtStrategy, UserRepository],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    UserRepository,
+    PrivateInformationRepository,
+  ],
   controllers: [AuthController],
 })
 export class AuthModule {}
